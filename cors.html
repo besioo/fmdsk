@@ -1,31 +1,45 @@
-<script>
-const url = 'https://apps.cisco.com/prfl/ccw/profile/get';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Request Example</title>
+</head>
+<body>
+    <h1>Response from POST Request</h1>
+    <div id="responseDisplay">Waiting for response...</div>
 
-// Function to send a POST request with credentials
-async function sendPostRequest() {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add any other headers you need here
-            },
-            credentials: 'include', // Ensures cookies and credentials are included in the request
-            body: JSON.stringify({}) // Your actual payload here
-        });
+    <script>
+        async function sendPostRequest() {
+            const url = 'https://apps.cisco.com/prfl/ccw/profile/get';
+            const responseDisplay = document.getElementById('responseDisplay'); // Get the div to display the response
 
-        // Check if the response was successful
-        if (response.ok) {
-            const data = await response.json(); // Parse response as JSON
-            console.log('Response:', data);
-        } else {
-            console.error('Error:', response.status, response.statusText);
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include', // This sends cookies along with the request
+                    body: JSON.stringify({
+                        // Add any necessary payload here
+                    })
+                });
+
+                // Check if request was successful
+                if (response.ok) {
+                    const data = await response.json(); // Parse the response as JSON
+                    responseDisplay.textContent = JSON.stringify(data, null, 2); // Display the response in the div
+                } else {
+                    responseDisplay.textContent = `Error: ${response.status} ${response.statusText}`;
+                }
+            } catch (error) {
+                responseDisplay.textContent = `Request failed: ${error.message}`;
+            }
         }
-    } catch (error) {
-        console.error('Fetch error:', error);
-    }
-}
 
-// Call the function
-sendPostRequest();
-</script>
+        // Send the request when the page loads
+        window.onload = sendPostRequest;
+    </script>
+</body>
+</html>
