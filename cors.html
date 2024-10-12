@@ -1,0 +1,31 @@
+<script>
+const url = 'https://apps.cisco.com/prfl/ccw/profile/get';
+
+// Function to send a POST request with credentials
+async function sendPostRequest() {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers you need here
+            },
+            credentials: 'include', // Ensures cookies and credentials are included in the request
+            body: JSON.stringify({}) // Your actual payload here
+        });
+
+        // Check if the response was successful
+        if (response.ok) {
+            const data = await response.json(); // Parse response as JSON
+            console.log('Response:', data);
+        } else {
+            console.error('Error:', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+// Call the function
+sendPostRequest();
+</script>
