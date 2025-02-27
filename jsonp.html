@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Auth Data</title>
+</head>
+<body>
+    <h1>Auth Data</h1>
+    <pre id="auth-data"></pre>
+
+    <!-- Define window.platformUI before loading auth.js -->
+    <script>
+        // Define window.platformUI as an empty object
+        window.platformUI = {};
+    </script>
+
+    <!-- Include auth.js -->
+    <script src="https://connectdna.cisco.com/papi/auth.js"></script>
+
+    <!-- Access the auth data after auth.js has executed -->
+    <script>
+        // Wait for the DOM to load
+        window.onload = function() {
+            // Access the auth data
+            const authData = window.platformUI.auth;
+            document.getElementById('auth-data').textContent = JSON.stringify(authData, null, 2);
+        };
+    </script>
+</body>
+</html>
