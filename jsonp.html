@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Auth Loader</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { padding: 10px; font-size: 1rem; margin-top: 10px; width: 100%; }
+    pre { background: #f4f4f4; padding: 15px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Load Auth Data from URL</h1>
+  <input type="text" id="js-url" placeholder="Enter JS file URL (e.g. https://.../auth.js)" />
+  <button onclick="loadScript()">Load and Show Auth</button>
 
+  <pre id="auth-data">Auth data will appear here...</pre>
+
+  <script>
+    // Make sure window.platformUI exists
+    window.platformUI = {};
+
+    function loadScript() {
+      const url = document.getElementById('js-url').value.trim();
+      if (!url) {
+        alert("Please enter a valid URL.");
+        return;
+      }
+
+      // Clean old data and scripts
+      document.getElementById('auth-data').textContent = "Loading...";
+      window.platformUI = {}; // Reset auth data
+
+      const existingScript = document.getElementById('dynamic-script');
+      if (existingScript) existingScript.remove();
+
+      const script = document.createElement('script');
+      script.src = url;
+      script.id = 'dynamic-script';
+      script.onload = () => {
+        const authData = window.platformUI.auth;
+        document.getElementById('auth-data').textContent =
+          authData ? JSON.stringify(authData, null, 2) : 'No auth data found in window.platformUI.auth.';
+      };
+      script.onerror = () => {
+        document.getElementById('auth-data').textContent = 'Failed to load the script.';
+      };
+      document.body.appendChild(script);
+    }
+  </script>
+</body>
+</html>
