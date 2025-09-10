@@ -1,6 +1,6 @@
 async function updatePassword(newPassword) {
   // Step 1: Fetch profile page to get CSRF token
-  const res = await fetch("http://3.248.202.69/profile", {
+  const res = await fetch("/profile", {
     credentials: "include" // send cookies (important for session)
   });
   const text = await res.text();
@@ -19,7 +19,7 @@ async function updatePassword(newPassword) {
   formData.append("bio", "Hi, I am Alice!"); // keep existing bio
   formData.append("password", newPassword);
 
-  const updateRes = await fetch("http://3.248.202.69/profile", {
+  const updateRes = await fetch("/profile", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
